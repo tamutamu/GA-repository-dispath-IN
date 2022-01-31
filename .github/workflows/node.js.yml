@@ -32,6 +32,12 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: echo "${{ github.event.client_payload.branch }}"
-    - run: echo "${{ github.event.inputs.name }}"
+    - run: echo '${{ toJSON(github) }}'
+    - name: hoge1
+      if:
+      run: echo "HOGE_NAME=${{ github.event.client_payload.branch }}" >> $GITHUB_ENV
+    - name: hoge2
+      if:
+      run: echo "HOGE_NAME=${{ github.event.inputs.pkgname }}" >> $GITHUB_ENV
+    - run: echo ${HOGE_NAME}
 
