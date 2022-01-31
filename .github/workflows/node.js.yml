@@ -39,5 +39,8 @@ jobs:
     - name: hoge2
       if: github.event_name == 'workflow_dispatch'
       run: echo "HOGE_NAME=${{ github.event.inputs.pkgname }}" >> $GITHUB_ENV
+    - name: Pass or fail
+      run: |
+         if [[ -z ${HOGE_NAME} ]]; then exit 1; fi
     - run: echo ${HOGE_NAME}
 
