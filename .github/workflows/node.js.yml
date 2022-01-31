@@ -34,10 +34,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: echo '${{ toJSON(github) }}'
     - name: hoge1
-      if:
+      if: github.event_name == 'repository_dispatch'
       run: echo "HOGE_NAME=${{ github.event.client_payload.branch }}" >> $GITHUB_ENV
     - name: hoge2
-      if:
+      if: github.event_name == 'workflow_dispatch'
       run: echo "HOGE_NAME=${{ github.event.inputs.pkgname }}" >> $GITHUB_ENV
     - run: echo ${HOGE_NAME}
 
