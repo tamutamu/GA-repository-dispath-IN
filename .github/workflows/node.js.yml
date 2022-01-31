@@ -6,10 +6,15 @@ name: Node.js CI
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   repository_dispatch:
     types: [update-test1-path]
+  workflow_dispatch:
+    inputs:
+      pkgname:
+        description: 'Name'
+        required: true
+        default: 'hoge'
+
 
 jobs:
   build:
@@ -28,4 +33,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: echo ${{ github.event.client_payload.branch }}
+    - run: echo ${{ github.event.inputs.name }}"
 
